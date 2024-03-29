@@ -8,6 +8,38 @@ st.set_page_config(page_title="WhatsApp Chat Detailer",page_icon=":chart_with_up
 
 st.sidebar.title("WhatsApp Chat Detailer")
 
+guide_message="""
+## Welcome to WhatsApp Chat Detailer                                                   
+
+##### Quick Steps to Analyze your Chat Data:
+
+###### 1. Export 
+
+- Open the WhatsApp chat you wish to analyze.
+- Tap the three-dot menu icon in the top-right corner.
+- Select "More" > "Export chat" > "Without media".
+- Save the exported .txt file in the file system.
+- Exporting Group chat make take little while to initialize.
+
+###### 2. Upload 
+
+- Click on the "Browse files" button on the left side of this page.
+- Select the exported .txt file from the file system.
+
+###### 3. Analyze 
+
+- After uploading the file, select the user or group chat from the dropdown menu with respect to whom you want the analysis.
+- Click on the "Show Analysis" button to view detailed statistics, timelines and visualizations.
+
+##### Note:
+
+- Prefer switching to desktop mode when opening this web app on phone.
+- Zip file is not valid, make sure to extract it before uploading.
+- Group chat analysis may take few seconds depending on the chat data. 
+
+"""
+guide_placeholder=st.empty()
+guide_placeholder.markdown(guide_message)
 uploaded_file = st.sidebar.file_uploader("Choose a file")
 
 if uploaded_file is not None:
@@ -23,6 +55,7 @@ if uploaded_file is not None:
             selected_user=st.sidebar.selectbox("Show Analysis for:",user_list)
 
             if st.sidebar.button("Show Analysis"):
+                guide_placeholder.empty()
                 num_messages, words, num_media_messages, num_links= helper.fetch_stats(selected_user,df)
                 st.title("Top Statistics")
                 col1,col2,col3,col4=st.columns(4)
