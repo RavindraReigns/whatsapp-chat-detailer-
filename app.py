@@ -3,43 +3,28 @@ import helper
 import preprocessor
 import matplotlib.pyplot as plt
 import seaborn as sns
+from guide_message import get_guide_message
 
 st.set_page_config(page_title="WhatsApp Chat Detailer",page_icon=":chart_with_upwards_trend:")
 
+st.markdown(
+    """
+    <style>
+    body {
+        color: white;
+        background-color: #1E1E1E;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 st.sidebar.title("WhatsApp Chat Detailer")
 
-guide_message="""
-## Welcome to WhatsApp Chat Detailer                                                   
-
-##### Quick Steps to Analyze your Chat Data:
-
-###### 1. Export 
-
-- Open the WhatsApp chat you wish to analyze.
-- Tap the three-dot menu icon in the top-right corner.
-- Select "More" > "Export chat" > "Without media".
-- Save the exported .txt file in the file system.
-- Exporting Group chat make take little while to initialize.
-
-###### 2. Upload 
-
-- Click on the "Browse files" button on the left side of this page.
-- Select the exported .txt file from the file system.
-
-###### 3. Analyze 
-
-- After uploading the file, select the user or group chat from the dropdown menu with respect to whom you want the analysis.
-- Click on the "Show Analysis" button to view detailed statistics, timelines and visualizations.
-
-##### Note:
-
-- Prefer switching to desktop mode when opening this web app on phone.
-- Zip file is not valid, make sure to extract it before uploading.
-- Group chat analysis may take few seconds depending on the chat data. 
-
-"""
+guide_message = get_guide_message()
 guide_placeholder=st.empty()
 guide_placeholder.markdown(guide_message)
+
 uploaded_file = st.sidebar.file_uploader("Choose a file")
 
 if uploaded_file is not None:
@@ -159,10 +144,10 @@ if uploaded_file is not None:
 
         else:
             st.markdown("<p style='font-size:30px; color:red; font-family:Times New Roman;'>The uploaded text does not appear to be in a valid chat format.Please upload a file containing chat messages in a valid '.txt' format!!!</p>",unsafe_allow_html=True)
-
+            guide_placeholder.empty()
     else:
         st.markdown("<p style='font-size:30px; color:red; font-family:Times New Roman;'>This is not a valid chat format! Please upload a valid '.txt' chat format!!!</p>",unsafe_allow_html=True)
-
+        guide_placeholder.empty()
 
 
 
